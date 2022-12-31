@@ -1,0 +1,124 @@
+Sub ParseRegister()
+''''PREPARES ALL DATA
+Dim A As Long
+Dim ws As Worksheet
+Dim LastCellRow As Long
+Dim iCntr As Long
+Set ws = ThisWorkbook.Sheets("PASTE_IN_HERE")
+Set LastCell = ws.Cells.Find("*", SearchOrder:=xlByRows, SearchDirection:=xlPrevious)
+LastCellRow = LastCell.Row
+
+For iCntr = LastCellRow To 1 Step -1
+    If Trim(Cells(iCntr, 1)) = "" Then
+        Rows(iCntr).Delete
+    End If
+Next
+
+Columns("A:A").TextToColumns Destination:=Range("A1"), DataType:=xlFixedWidth, _
+        FieldInfo:=Array(Array(0, 1), Array(14, 1), Array(28, 1), Array(39, 1), Array(50, 1), _
+        Array(60, 1), Array(97, 1), Array(116, 1)), TrailingMinusNumbers:=True
+Sheets("PASTE_IN_HERE").Columns("A:H").AutoFit
+End Sub
+
+
+Sub GrabWarrants()
+Dim activeCell1 As Range
+Dim ws As Worksheet
+Dim LastCellRow As Long
+Set ws = ThisWorkbook.Sheets("PASTE_IN_HERE")
+With ThisWorkbook.Sheets
+    .Add.Name = "Warrants_NG"
+    .Add.Name = "Warrants_SG"
+    .Add.Name = "Warrants_AG"
+End With
+Set LastCell = ws.Cells.Find("*", SearchOrder:=xlByRows, SearchDirection:=xlPrevious)
+LastCellRow = LastCell.Row
+'''' THIS IS THE LOOP TO GRAB WARRANTS
+        For Each activeCell1 In ws.Range("D2", "D" & LastCellRow)
+        WLastRow = Sheets("Warrants_SG").Range("A1").CurrentRegion.Rows.Count
+            If activeCell1 Like "1########" And activeCell1.Offset(0, 4) Like "SAD_TXSG*" Then
+                activeCell1.EntireRow.Copy Sheets("Warrants_SG").Range("A" & WLastRow + 1)
+            End If
+        Next activeCell1
+
+        For Each activeCell1 In ws.Range("D2", "D" & LastCellRow)
+        WLastRow = Sheets("Warrants_NG").Range("A1").CurrentRegion.Rows.Count
+            If activeCell1 Like "1########" And activeCell1.Offset(0, 4) Like "SAD_TXNG*" Then
+                activeCell1.EntireRow.Copy Sheets("Warrants_NG").Range("A" & WLastRow + 1)
+            End If
+        Next activeCell1
+        
+        For Each activeCell1 In ws.Range("D2", "D" & LastCellRow)
+        WLastRow = Sheets("Warrants_AG").Range("A1").CurrentRegion.Rows.Count
+            If activeCell1 Like "1########" And activeCell1.Offset(0, 4) Like "SAD_TXANG*" Then
+                activeCell1.EntireRow.Copy Sheets("Warrants_AG").Range("A" & WLastRow + 1)
+            End If
+        Next activeCell1
+ws.Range("A1").EntireRow.Copy Sheets("Warrants_SG").Range("A1")
+ws.Range("A1").EntireRow.Copy Sheets("Warrants_NG").Range("A1")
+ws.Range("A1").EntireRow.Copy Sheets("Warrants_AG").Range("A1")
+Sheets("Warrants_SG").Columns("A:H").AutoFit
+Sheets("Warrants_NG").Columns("A:H").AutoFit
+Sheets("Warrants_AG").Columns("A:H").AutoFit
+
+    
+
+End Sub
+
+
+Sub GrabDD()
+Dim activeCell2 As Range
+Dim ws As Worksheet
+Dim LastCellRow As Long
+Set ws = ThisWorkbook.Sheets("PASTE_IN_HERE")
+With ThisWorkbook.Sheets
+    .Add.Name = "DirDep_NG"
+    .Add.Name = "DirDep_SG"
+    .Add.Name = "DirDep_AG"
+End With
+Set LastCell = ws.Cells.Find("*", SearchOrder:=xlByRows, SearchDirection:=xlPrevious)
+LastCellRow = LastCell.Row
+'''' THIS IS THE LOOP TO GRAB DIRECTDEPOSITS
+        For Each activeCell2 In ws.Range("D2", "D" & LastCellRow)
+        WLastRow = Sheets("DirDep_SG").Range("A1").CurrentRegion.Rows.Count
+            If activeCell2 Like "8########" And activeCell2.Offset(0, 4) Like "SAD_TXSG*" Then
+                activeCell2.EntireRow.Copy Sheets("DirDep_SG").Range("A" & WLastRow + 1)
+            End If
+        Next activeCell2
+
+        For Each activeCell2 In ws.Range("D2", "D" & LastCellRow)
+        WLastRow = Sheets("DirDep_NG").Range("A1").CurrentRegion.Rows.Count
+            If activeCell2 Like "8########" And activeCell2.Offset(0, 4) Like "SAD_TXNG*" Then
+                activeCell2.EntireRow.Copy Sheets("DirDep_NG").Range("A" & WLastRow + 1)
+            End If
+        Next activeCell2
+        
+        For Each activeCell2 In ws.Range("D2", "D" & LastCellRow)
+        WLastRow = Sheets("DirDep_AG").Range("A1").CurrentRegion.Rows.Count
+            If activeCell2 Like "8########" And activeCell2.Offset(0, 4) Like "SAD_TXANG*" Then
+                activeCell2.EntireRow.Copy Sheets("DirDep_AG").Range("A" & WLastRow + 1)
+            End If
+        Next activeCell2
+        
+ws.Range("A1").EntireRow.Copy Sheets("DirDep_NG").Range("A1")
+ws.Range("A1").EntireRow.Copy Sheets("DirDep_SG").Range("A1")
+ws.Range("A1").EntireRow.Copy Sheets("DirDep_AG").Range("A1")
+Sheets("DirDep_NG").Columns("A:H").AutoFit
+Sheets("DirDep_SG").Columns("A:H").AutoFit
+Sheets("DirDep_AG").Columns("A:H").AutoFit
+
+End Sub
+
+Sub ClearContents()
+
+ThisWorkbook.Sheets("PASTE_IN_HERE").Columns("A:H").Clear
+Sheets("PASTE_IN_HERE").Range("A1").Select
+
+End Sub
+
+
+
+
+
+
+
