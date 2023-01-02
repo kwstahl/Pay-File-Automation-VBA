@@ -1,4 +1,4 @@
-# routine-data-automation-VBA
+# Pay-File-Automation-VBA
 This VBA script was created to clean routine Pay Register files. This Pay Register file was usually sent to my team from the Office of State Administration. The file was always a jumbled mess that required some advanced excel knowledge to clean.
 I created This VBA script to automate the process for my team who had less advanced excel knowledge.
 The data could then be used to find soldiers receiving direct deposits, soldiers receiving checks (warrants), and splits them up according to their branch of service (Army, Air, State Guards). 
