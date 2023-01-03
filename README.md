@@ -4,7 +4,7 @@ I created This VBA script to automate the process for my team who had less advan
 The data could then be used to find soldiers receiving direct deposits, soldiers receiving checks (warrants), and splits them up according to their branch of service (Army, Air, State Guards). 
 This was essential, because my team handled distribution and validation of all soldier pay records/checks every pay period of 15 days.
 
-##Cleaning Initial Data
+## Cleaning Initial Data
 The first button parses the data by naming the worksheet and setting all dimensions:
 Setting the worksheet ensures that the data does not get mixed into wrong sheets.
 
@@ -36,7 +36,7 @@ Lastly, TextToColumns methods are performed, since each pay register file was se
 Sheets("PASTE_IN_HERE").Columns("A:H").AutoFit
 End Sub`
 
-##Separating Soldiers by Component, and Finding all Receiving Paper Checks (warrants)
+## Separating Soldiers by Component, and Finding all Receiving Paper Checks (warrants)
 
 This part names the macro, assigns dimensions, and creates new worksheets.
 The sheets created are "Warrants_NG", "Warrants_SG", and "Warrants_AG". These correspond to Paychecks for Army, State, and Air guard components respectively.
